@@ -1,0 +1,34 @@
+# MkDocs Material viewer — builds a full docs site with search and dark mode.
+# MkDocs processes the markdown server-side, so no browser-side JavaScript
+# is needed to render content.
+#
+# Usage:
+#   docker compose -f docker-compose.mkdocs.yml up
+#   Open http://<your_ip_here>:8000
+#
+# Stop with Ctrl+C, or:
+#   docker compose -f docker-compose.mkdocs.yml down
+#
+# First run will pull the image (~100MB). Subsequent runs are instant.
+
+services:
+  mkdocs:
+    image: squidfunk/mkdocs-material:latest
+    ports:
+      - "8000:8000"
+    volumes:
+      # KB content, mounted where mkdocs.yml expects it (docs_dir: /kb)
+      - ./output:/kb:ro
+
+      # mkdocs.yml is mounted directly rather than bundled with the image
+      # so you can edit theme, plugins, and nav without rebuilding anything
+      - ./viewers/mkdocs/mkdocs.yml:/mkdocs.yml:ro
+
+    # serve reads mkdocs.yml from the working directory by default, but we
+    # mount ours at /mkdocs.yml so we pass the path explicitly.
+    # --dev-addr binds to all interfaces so the port is reachable from the host.
+    command: serve --config-file /mkdocs.yml --dev-addr=0.0.0.0:8000
+
+    # MkDocs live-reloads when source files change. Because ./output is bind-
+    # mounted, any re-run of the exporter will automatically refresh the browser.
+    # This makes it easy to iterate: export, then immediately see the result.
