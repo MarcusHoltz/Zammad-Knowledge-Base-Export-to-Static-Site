@@ -7,8 +7,8 @@ services:
     environment:
 
       # --- Required ----------------------------------------------------------------------
-      ZAMMAD_URL:   "http://10.236.224.132:8080"
-      ZAMMAD_TOKEN: "LRI___CPSax9Wi6Zmxa-dAy_LvtKmo1xGB-oYGmvgsHhrpk06rGyn_VbO4bgiPIx"
+      ZAMMAD_URL:   "https://your-zammad.example.com"
+      ZAMMAD_TOKEN: "your_api_token_here"
       # Create a token at: Your Profile → Token Access → Create
       # Required permissions:
       #   knowledge_base.reader  — to read KB categories and answers
