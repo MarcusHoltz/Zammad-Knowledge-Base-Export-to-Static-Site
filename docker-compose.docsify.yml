@@ -1,0 +1,37 @@
+# Docsify viewer — zero build step, renders markdown client-side.
+# Runs entirely offline after the first image pull.
+#
+# Usage:
+#   docker compose -f docker-compose.docsify.yml up
+#   Open http://<your_ip_here>:3000
+#
+# Stop with Ctrl+C, or:
+#   docker compose -f docker-compose.docsify.yml down
+
+services:
+  docsify:
+    image: nginx:alpine
+    ports:
+      - "3000:80"
+    volumes:
+      # KB content — the exported markdown and images
+      - ./output:/usr/share/nginx/html:ro
+
+      # These two files are injected into the same served root as the KB
+      # content without modifying your output directory.
+      # index.html   — the Docsify SPA shell (loads from CDN, works offline once cached)
+      # README.md    — the home/welcome page Docsify shows at the root URL
+      - ./viewers/docsify/index.html:/usr/share/nginx/html/index.html:ro
+      - ./viewers/docsify/home.md:/usr/share/nginx/html/README.md:ro
+
+      # Custom nginx config that serves .md files as text/plain so Docsify
+      # can fetch them via XHR. Without this nginx serves them as downloads.
+      - ./viewers/docsify/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+
+    # nginx:alpine has no healthcheck by default — this lets compose report
+    # a clean "healthy" state once the server is actually accepting connections.
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/index.html"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
