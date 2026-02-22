@@ -7,7 +7,7 @@ services:
     environment:
 
       # --- Required ----------------------------------------------------------------------
-      ZAMMAD_URL:   "https://your-zammad.example.com"
+      ZAMMAD_URL:   "http://hey_you_put_your_ip_here:8080"
       ZAMMAD_TOKEN: "your_api_token_here"
       # Create a token at: Your Profile → Token Access → Create
       # Required permissions:
