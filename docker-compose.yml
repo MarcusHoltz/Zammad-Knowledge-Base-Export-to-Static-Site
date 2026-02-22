@@ -1,0 +1,33 @@
+services:
+  zammad-kb-export:
+    build: .
+    volumes:
+      # Exported markdown files will appear in ./output on your machine
+      - ./output:/output
+    environment:
+
+      # --- Required ----------------------------------------------------------------------
+      ZAMMAD_URL:   "http://10.236.224.132:8080"
+      ZAMMAD_TOKEN: "LRI___CPSax9Wi6Zmxa-dAy_LvtKmo1xGB-oYGmvgsHhrpk06rGyn_VbO4bgiPIx"
+      # Create a token at: Your Profile → Token Access → Create
+      # Required permissions:
+      #   knowledge_base.reader  — to read KB categories and answers
+      #   admin.tag              — to read tags (without this, tags will be skipped)
+      # You can add both when creating the token under Admin → Accounts → Token Access.
+
+      # --- Optional -----------------------------------------------------------------------
+
+      # Knowledge Base ID to export. Almost always 1. You can check Admin > Knowledge Base.
+      # Increment if you deleted and recreated your KB (Zammad does not reuse IDs). 
+      ZAMMAD_KB_ID: "1"
+
+      # Seconds to wait between API calls (be kind to your Zammad instance)
+      RATE_LIMIT: "0.1"
+
+      # --- Output format -------------------------------------------------------------------
+
+      # Add YAML frontmatter to each file (frontmater needed for Astro / Jekyll / Hugo)
+      FRONTMATTER: "true"
+
+      # Heading style: ATX = "# Heading", UNDERLINED = "Heading\n========"
+      MD_HEADING_STYLE: "ATX"
