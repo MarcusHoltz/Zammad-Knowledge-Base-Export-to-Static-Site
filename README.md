@@ -1,5 +1,7 @@
 # Backup Zammad Knowledge Base and Export to Static Site Generator like Docsify or Mkdocs
 
+![Zammad Ticketing and Helpdesk has a Knowledge Base in PostgreSQL - Export this to a Markdown and into a Static Site Generator](https://raw.githubusercontent.com/MarcusHoltz/marcusholtz.github.io/main/assets/img/header/header--zammad--knowledge-base-export-to-markdown-static-site.jpg)
+
 ## Introduction
 
 I like the idea of [Zammad having a KB](https://admin-docs.zammad.org/en/latest/manage/knowledge-base.html).
