@@ -28,9 +28,12 @@ The tool in this repo gives you a clean, portable copy of everything in markdown
 Configuration is entirely in `docker-compose.yml` 
 
 - you set your Zammad URL
+
 - API token
-- run docker: `docker compose run --rm kb-export`
-- exports appears in `./output/` 
+
+- run docker: `docker compose run --rm zammad-kb-export`
+
+- exports appears in `./output/`
 
 > The exporter communicates exclusively with the Zammad REST API. It does not require database access.
 
